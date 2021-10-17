@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+<title>table</title>
+<style type="text/css">
+	input[type=text] {
+		width: 100px;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<span>输入金额</span>
+		<input type="text" id="input_add">
+		<button onClick="add()">确定</button>
+		<button onClick="statistics()">统计</button>
+		<button onClick="clean()">清除</button>
+	</div>
+</body>
+
+<script type="text/javascript">
+	if (window.localStorage) {
+        alert("浏览器支持localStorage");
+    }else {
+        alert("浏览器不支持localStorage");
+    }
+	var table = document.createElement("table")
+	var last_col
+	table.id = "table"
+	for(var i = 1; i <= 25; i++) {
+		let row = document.createElement("tr")
+
+		let num = document.createElement("td")
+		num.textContent = i
+		let value = document.createElement("td")
+
+		let cb = document.createElement("input")
+		cb.type = "checkbox"
+		cb.id = "cb_" + i
+		
+		let input = document.createElement("input")
+		input.type = "text"
+		input.id = "col_" + i
+		let data = localStorage.getItem('col_' + i)
+		if (data) {
+			input.value = data
+		}
+		value.append(input)
+
+		row.append(num)
+		row.append(cb)
+		row.append(value)
+
+		if (i != 25) {
+			j = i + 25
+			let num_2 = document.createElement("td")
+			num_2.textContent = j
+			let value_2 = document.createElement("td")
+
+			let cb_2 = document.createElement("input")
+			cb_2.type = "checkbox"
+			cb_2.id = "cb_" + j
+			
+			let input_2 = document.createElement("input")
+			input_2.type = "text"
+			input_2.id = "col_" + j
+			let data_2 = localStorage.getItem('col_' + j)
+			if (data_2) {
+				input_2.value = data_2
+			}
+			value_2.append(input_2)
+
+			row.append(num_2)
+			row.append(cb_2)
+			row.append(value_2)
+		}
+
+		table.append(row)
+	}
+	document.body.prepend(table)
+
+	function add() {
+		let add = document.getElementById("input_add")
+		for (let i = 1; i <= 49; i++) {
+			let cb = document.getElementById("cb_" + i)
+			if (cb.checked) {
+				let input = document.getElementById("col_" + i)
+				if (!input.value) {
+					input.value = 0
+				}
+				if (!add.value) {
+					add.value = 0
+				}
+				let sum = parseInt(input.value) + parseInt(add.value)
+				localStorage.setItem('col_' + i, sum)
+			}
+		}
+		location.reload()
+	}
+
+	function statistics() {
+		let min
+		for (let i = 1; i <= 49; i++) {
+			let input = document.getElementById("col_" + i)
+			if (!input.value || input.value == 0) {
+				continue
+			}
+			if (!min) {
+				min = input.value
+			}
+			min = input.value < min ? input.value : min
+		}
+		for (let i = 1; i <= 49; i++) {
+			let input = document.getElementById("col_" + i)
+			if (!input.value || input.value == 0) {
+				continue
+			}
+			input.value = input.value - min
+			localStorage.setItem('col_' + i, input.value)
+		}
+	}
+
+	function clean() {
+		for (var i = 0; i <= 49; i++) {
+			localStorage.removeItem("col_" + i)
+		}
+		location.reload()
+	}
+</script>
+</html>
