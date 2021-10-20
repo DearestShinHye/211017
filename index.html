@@ -16,13 +16,17 @@
 </head>
 <body>
 	<div>
-		<span>金额</span>
+		<span>数据</span>
 		<input type="text" id="input_add">
 		<button onClick="add()">确定</button>
 		<button onClick="statistics()">统计</button>
-		<button onClick="clean()">清除</button>
-		<button onClick="addCol()">增加</button>
 	</div>
+	<div>
+		<button onClick="clean()">清除数据</button>
+		<button onClick="addCol()">增加行数</button>
+		<button onClick="delCol()">减少行数</button>
+	</div>
+	<div>数据总额：<span id ="total"></span></div>
 </body>
 
 <script type="text/javascript">
@@ -95,6 +99,18 @@
 			
 		} else {
 			max = parseInt(max) + 2
+		}
+		localStorage.setItem('max', max)
+		location.reload()
+	}
+
+	function delCol() {
+		let max = localStorage.getItem('max')
+		if (!max) {
+			max = 50
+			
+		} else {
+			max = parseInt(max) - 2
 		}
 		localStorage.setItem('max', max)
 		location.reload()
