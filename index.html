@@ -61,7 +61,7 @@
 		let data = localStorage.getItem('col_' + i)
 		if (data) {
 			input.value = data
-			total += data
+			total += parseInt(data)
 		}
 		value.append(input)
 
@@ -84,6 +84,7 @@
 		let data_2 = localStorage.getItem('col_' + j)
 		if (data_2) {
 			input_2.value = data_2
+                        total += parseInt(data_2)
 		}
 		value_2.append(input_2)
 
