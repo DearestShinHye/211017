@@ -18,13 +18,15 @@
 	<div>
 		<span>数据</span>
 		<input type="text" id="input_add">
-		<button onClick="add()">确定</button>
-		<button onClick="statistics()">统计</button>
+		<div>
+			<button style="height: 50px; width: 50px; margin: 10px;" onClick="add()">确定</button>
+			<button style="height: 50px; width: 50px; margin: 10px;" onClick="statistics()">统计</button>
+		</div>
 	</div>
 	<div>
-		<button onClick="clean()">清除数据</button>
-		<button onClick="addCol()">增加行数</button>
-		<button onClick="delCol()">减少行数</button>
+		<button style="height: 50px; margin: 10px;" onClick="clean()">清除数据</button>
+		<button style="height: 50px; margin: 10px;" onClick="addCol()">增加行数</button>
+		<button style="height: 50px; margin: 10px;" onClick="delCol()">减少行数</button>
 	</div>
 	<div>数据总额：<span id ="total"></span></div>
 </body>
@@ -84,7 +86,7 @@
 		let data_2 = localStorage.getItem('col_' + j)
 		if (data_2) {
 			input_2.value = data_2
-                        total += parseInt(data_2)
+			total += parseInt(data_2)
 		}
 		value_2.append(input_2)
 
